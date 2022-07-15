@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript Form Validation</title>
+    <!-- <link rel="stylesheet" href="Style.css"> -->
+
+</head>
+
+<body>
+    <div class="container">
+        <fieldset>
+            <legend>
+                <h1>Form Validation</h1>
+            </legend>
+            <form name="myForm" onclick=" validateForm()">
+                <div class="formdesign" id="name">
+                    <label>First Name:</label>
+                    <input type="text" name="fname" id="a"><span class="formerror"> </span>
+                </div><br>
+                <div class="formdesign" id="lname">
+                    <label>Last Name:</label>
+                    <input type="text" name="llname" id="b"><span class="formerror"> </span>
+                </div><br>
+
+                <div class="formdesign" id="email">
+                    <label>Email:</label>
+                    <input type="email" name="femail" id="c"><span class="formerror"> </span>
+                </div><br>
+
+                <div class="formdesign" id="phone">
+                    <label>Phone:</label>
+                    <input type="phone" pattern="[1-9]{1}[0-9]{9}" name="fphone" id="f"><span class="formerror"></span>
+                </div><br>
+                <div class="formdesigns" id="selection">
+                    <label>Qalification:</label>
+                    <select name="education">
+                        <option value="">Select Qulification</option>
+                        <option value="BE">BE</option>
+                        <option value="MCA">MCA</option>
+                        <option value="BCA">BCA</option>
+                        <option value="12th">12th</option>
+                        <span class="formerror"></span>
+
+                    </select>
+                </div><br>
+                <div class="formdesigns" id="radio">
+                    <label>Gender:</label>
+                    <input type="radio" name="fgender" id="male" value="Male" class="g">
+                    <label for="male">Male</label>
+                    <input type="radio" name="fgender" id="female" value="Female" class="g">
+                    <label for="female">Female</label>
+                    <input type="radio" name="fgender" id="other" value="Other" class="g">
+                    <label for="other">Other</label>
+                    <span class="formerror"></span>
+                </div><br>
+                <div class="formdesigns" id="chkbox">
+                    <label>Hobbies:</label>
+                    <input type="checkbox" name="fhobbies" value="Singing" id="checkbox1" class="hobbie">
+                    <label for="singing"> Singing</label>
+                    <input type="checkbox" name="fhobbies" value="Reading"  id="checkbox2" class="hobbie">
+                    <label for="Reading"> Reading</label>
+                    <input type="checkbox" name="fhobbies" value="Swiming" id="checkbox3" class="hobbie">
+                    <label for="Swiming"> Swiming</label>
+                    <input type="checkbox" name="fhobbies" value="cooking" id="checkbox4" class="hobbie">
+                    <label for="Cooking"> Cooking</label>
+                    <span class="formerror"></span>
+
+
+                </div><br>
+                <div class="formdesigns" id="comment">
+                    <label>Comment:</label><br>
+                    <textarea id="txt" name="txtbox" rows="4" cols="50"></textarea>
+                </div>
+
+
+                <input class="but" type="submit" value="Submit"><br>
+
+                <p>First Name: <span id="display"></span></p>
+                <p>Last Name: <span id="display1"></span></p>
+                <p>Email: <span id="display2"></span></p>
+                <p>Phone: <span id="display3"></span></p>
+                <p>Qualification: <span id="display4"></span></p>
+                <p>Gender: <span id="display5"></span></p>
+                <p>Hobbies: <span id="display6"></span></p>
+                <p>Comment: <span id="display7"></span></p>
+
+
+
+
+        </fieldset>
+
+        </form>
+    </div>
+    <script>
+        function clearErrors() {
+
+            errors = document.getElementsByClassName('formerror');
+            for (let item of errors) {
+                item.innerHTML = "";
+            }
+
+
+        }
+        function seterror(id, error) {
+            element = document.getElementById(id);
+            element.getElementsByClassName('formerror')[0].innerHTML = error;
+
+        }
+
+        function validateForm() {
+            let returnval = true;
+            clearErrors();
+
+            const name = document.forms['myForm']["fname"].value;
+            if (name.length < 5) {
+                seterror("name", "*Length of name is too short");
+                returnval = false;
+            }
+
+            if (name.length == 0) {
+                seterror("name", "*Please Enter first Name Here!");
+                returnval = false;
+            }
+            const lname = document.forms['myForm']["llname"].value;
+            if (lname.length < 5) {
+                seterror("lname", "*Length of name is too short");
+                returnval = false;
+            }
+
+            if (lname.length == 0) {
+                seterror("lname", "*Please Enter last Name Here!");
+                returnval = false;
+            }
+
+            const email = document.forms['myForm']["femail"].value;
+            if (email.length > 20) {
+                seterror("email", "*Email length is too long");
+                returnval = false;
+            }
+            if (email.length == 0) {
+                seterror("email", "*Please Enter email here!");
+                returnval = false;
+            }
+            const phone = document.forms['myForm']["fphone"].value;
+            if (phone.length != 10) {
+                seterror("phone", "*Please enter your Number here!");
+                returnval = false;
+            }
+            // var subcat =  document.forms['myForm']["education"];
+            // if (subcat.value == "") {
+            //     seterror("selection","*Please select an option!");
+            //     returnval=false;
+            // }
+            var subcat = document.forms['myForm']["education"];
+            if (subcat.value == "") {
+                alert("*please select one option from it!");
+                returnval = false;
+
+            }
+            const rdb1 = document.getElementById("male");
+            const rdb2 = document.getElementById("female");
+            const rdb3 = document.getElementById("other");
+            if (rdb1.checked == true) {
+                document.getElementById('display5').innerHTML = (rdb1.value);
+            }
+            else if (rdb2.checked == true) {
+                document.getElementById('display5').innerHTML = (rdb2.value);
+            }
+            else if (rdb3.checked == true) {
+                document.getElementById('display5').innerHTML = (rdb3.value);
+
+            }
+            else {
+                seterror("radio", "*please select one option from it!");
+            }
+            // const checkBoxes = document.forms['myForm']["fhobbies"];
+            // for (let i = 0; i < checkBoxes.length; i++) {
+            //     if (checkBoxes[i].checked === true) {
+            //         // document.getElementById('display6').innerHTML = document.getElementById("chkbox").value;
+            //         console.log(checkBoxes);
+            //     } else {
+            //         seterror("chkbox", "*please select atleat one hobbie!");
+            //         returnval = false;
+            //     }
+            // }
+            var hobie=[]
+              var sing = document.getElementById("checkbox1")
+              if(sing.checked){
+                    hobie.push(sing.value);
+             }
+             var read = document.getElementById("checkbox2")
+              if(read.checked){
+                    hobie.push(read.value); 
+             }
+             var swim = document.getElementById("checkbox3")
+              if(swim.checked){
+                    hobie.push(swim.value);
+             }
+             var cook = document.getElementById("checkbox4")
+              if(cook.checked){
+                    hobie.push(cook.value);
+             }
+            if(hobie.length>0){
+             document.getElementById("display6").innerHTML = hobie;
+            }
+            else{
+                seterror("chkbox", "*please write your comment here!");
+            }
+             
+            const cmt = document.forms['myForm']["txtbox"];
+            if (cmt == "") {
+
+                seterror("comment", "*please write your comment here!");
+                returnval = false;
+            }
+            document.getElementById('display').innerHTML =
+                document.getElementById("a").value;
+            document.getElementById('display1').innerHTML =
+                document.getElementById("b").value;
+            document.getElementById('display2').innerHTML =
+                document.getElementById("c").value;
+            document.getElementById('display3').innerHTML =
+                document.getElementById("f").value;
+            document.getElementById('display4').innerHTML =
+                document.myForm.education.value;
+            document.getElementById('display7').innerHTML =
+                document.getElementById("txt").value;
+            return returnval;
+        }
+
+
+
+    </script>
+</body>
+
+</html>
